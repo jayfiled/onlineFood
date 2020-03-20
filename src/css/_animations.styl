@@ -1,0 +1,58 @@
+// Using Stylus - same as CSS except with indentation instead of curly brackets
+
+// Use spaces!  Not Tabs.
+
+// How to compile it to CSS?  
+// React - webpack, you can't use an custom pre-processor for CSS unless you use EJECT
+
+// In package.json, these scripts are responsible for compiling .styl files to .css (first line)
+// The second script will watch for changes (on save) and automatically refresh our web server and output changes to the terminal
+
+    // "styles": "stylus -u autoprefixer-stylus ./src/css/style.styl -o ./src/css/style.css",
+    // "styles:watch": "npm run styles -- -w"
+
+  // BUT you can't run the web server through NPM run start at the same time (unless you run them in seperate terminal sessions), so
+  // there is another that runs them concurrently:
+
+  // "watch": "concurrently --names \"webpack, stylus\" --prefix name \"npm run start\" \"npm run styles:watch\"",
+
+  // Now the terminal will show you the webpack output and the stylus output
+
+// --------------------------
+// These styles will be applied when the element is added to the DOM by react set by the delay in the component, then they will be removed 
+  // They are applied on components which don't exist on the page until an event happens, but when they do, they are applied
+.order-enter
+  transform translateX(-120%) rotate(0)
+  transition .5s // <-- The transition applies because we give the element the .order-enter class first, then a split second later add .order-enter-active
+  max-height 0
+  padding 0 !important  // <-- padding being overwritten by the padding prop in style.css, so making this a priority
+  &.order-enter-active
+    transform translateX(0) rotate(1440deg)
+    max-height 60px
+    padding 2rem 0 !important
+
+// These are applied on the elements when there is an event to remove them.
+
+.order-exit
+  transition .5s
+  transform translateX(0)
+  max-height 60px
+
+  &.order-exit-active
+    transform translateX(120%)
+    max-height 0
+
+.count-enter
+  transition .5s
+  transform translateY(-100%)
+  &.count-enter-active
+    transform translateY(0)
+
+.count-exit
+  transition .5s
+  transform translateY(0)
+  position absolute
+  left 0
+  bottom 0
+  &.count-exit-active
+    transform translateY(100%)
