@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from 'prop-types';
 import { getFunName } from "../helpers";
 
 class StorePicker extends React.Component {
@@ -35,6 +36,13 @@ class StorePicker extends React.Component {
 
   //   console.log(this.myInput);
   // }
+
+  static propTypes = {
+    history: PropTypes.object,
+    location: PropTypes.object,
+    match: PropTypes.object
+  }
+
   render() {
     return (
       // <-- If you don't put the parenthesis, ; is assumed (ASI) and will break
