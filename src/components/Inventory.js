@@ -19,7 +19,7 @@ class Inventory extends React.Component {
   state = {
     uid: null,
     owner: null
-  }
+  };
 
   authHandler = async authData => {
     // 1. Look up the current store in the firebase database
@@ -30,17 +30,16 @@ class Inventory extends React.Component {
       // save it as our own
       await base.post(`${this.props.storeId}/owner`, {
         data: authData.user.uid // could also use email address
-      })
+      });
     }
     // 3. Set the state of the inventory component to reflect the current user
     this.setState({
       uid: authData.user.uid,
       owner: store.owner || authData.user.uid
-    })
+    });
 
     console.log(store);
     console.log(authData);
-
   };
 
   authenticate = provider => {
@@ -51,7 +50,15 @@ class Inventory extends React.Component {
       .then(this.authHandler);
   };
 
+  logout = async () => {
+    console.log("Logging out!");
+    await firebase.auth().signOut();
+    this.setState({ uid: null });
+  };
+
   render() {
+    const logout = <button onClick={this.logout}>Log out!</button>;
+
     // 1. check if they are logged in
     if (!this.state.uid) {
       return <Login authenticate={this.authenticate} />;
@@ -62,8 +69,9 @@ class Inventory extends React.Component {
       return (
         <div>
           <p>Sorry, you are not the owner!</p>
+          {logout}
         </div>
-      )
+      );
     }
 
     // 3. They must be the owner, render the inventory
@@ -71,6 +79,7 @@ class Inventory extends React.Component {
     return (
       <div>
         <h2>Inventory!</h2>
+        {logout}
         {Object.keys(this.props.fishes).map(key => (
           <EditFishForm
             key={key}
