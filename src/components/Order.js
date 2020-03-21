@@ -1,9 +1,14 @@
 import React from "react";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 import { formatPrice } from "../helpers";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 
 class Order extends React.Component {
+  static propTypes = {
+    fishes: PropTypes.object,
+    order: PropTypes.object,
+    removeFromOrder: PropTypes.func
+  };
   // instead of putting this complexity in the <ul> in the render function, abstract it out to it's own 'render' function like:
 
   renderOrder = key => {
@@ -55,12 +60,6 @@ class Order extends React.Component {
       </CSSTransition>
     );
   };
-
-static propTypes = {
-  fishes: PropTypes.object,
-  order: PropTypes.object,
-  removeFromOrder: PropTypes.func
-}
 
   render() {
     // order = this.props.order;

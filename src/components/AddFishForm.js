@@ -8,7 +8,11 @@ class AddFishForm extends React.Component {
   statusRef = React.createRef();
   descRef = React.createRef();
   imageRef = React.createRef();
-
+  
+  static propTypes = {
+    addFish: PropTypes.func
+  }
+  
   createFish = e => {
     e.preventDefault();
     const fish = {
@@ -24,9 +28,6 @@ class AddFishForm extends React.Component {
     e.currentTarget.reset();
   };
 
-  static propTypes = {
-    addFish: PropTypes.func
-  }
 
   render() {
     return (

@@ -102,7 +102,7 @@ class App extends React.Component {
   };
 
   static propTypes = {
-    params: PropTypes.string
+    match: PropTypes.object
   }
 
   render() {
